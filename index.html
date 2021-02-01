@@ -12,15 +12,15 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="pin-generator half-width">
-                    <input class="form-control" type="text">
-                    <button class="generate-btn">Generate Pin</button>
+                    <input id="four-pin" class="form-control" type="text">
+                    <button onclick="generatePin()" class="generate-btn">Generate Pin</button>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="input-section half-width">
-                    <input class="form-control" type="text">
+                    <input id="tryof-pin" class="form-control" type="text">
                     <div class="numbers">
-                        <div class="calc-body">
+                        <div id="digit-container" class="calc-body">
                             <div class="calc-button-row">
                               <div class="button">7</div>
                               <div class="button">8</div>
@@ -42,7 +42,7 @@
                                 <div class="button">C</div>
                             </div>
                             <div>
-                                <button type="submit" class="submit-btn">Submit</button>
+                                <button onclick="marchPin()" type="submit" class="submit-btn">Submit</button>
                                 <p class="action-left">3 try left</p>
                             </div>
                     </div>
@@ -50,9 +50,75 @@
             </div>
         </div>
         <div class="notify-section">
-            <p class="notify">❌ Pin Didn't Match, Please try again</p>
-            <p class="notify">✅ Pin Matched... Secret door is opening for you</p>
+            <p id="notify1" class="notify">❌ Pin Didn't Match, Please try again</p>
+            <p id="notify2" class="notify">✅ Pin Matched... Secret door is opening for you</p>
         </div>
     </div>
+
+
+<script>
+
+//pin function......
+    function getPin(){
+        const random =Math.random()*10000;
+        const pin =(random + '').split('.')[0];
+        if (pin.length === 4) {
+            return pin;
+        } else{
+            return getPin();
+        }
+    }
+
+/// pin button........
+    function generatePin(){
+        const fourPin =document.getElementById('four-pin');
+        fourPin.value =getPin();
+    }
+
+/// handle calculator button
+ const buttonContainer =document.getElementById('digit-container').addEventListener('click',function(event){
+    const digit =event.target.innerText;
+    if (isNaN(digit)) {
+        if (digit === 'C') {
+            const tryPin =document.getElementById('tryof-pin');
+            tryPin.value ='';
+        }
+    }
+    else{
+        const tryPin =document.getElementById('tryof-pin');
+        tryPin.value =tryPin.value +digit;
+    }
+ });
+
+ //submit button
+ function marchPin(){
+    const fourPin =document.getElementById('four-pin').value;
+    const tryPin =document.getElementById('tryof-pin').value;
+
+    if (fourPin === tryPin) {
+    //   const notify2=  document.getElementById('notify2');
+    //   notify2.style.display ='block';
+    //   const notify1= document.getElementById('notify1');
+    //   notify1.style.display ='none';
+    display('block','none');
+    }
+    else{
+        // const notify1= document.getElementById('notify1');
+        // notify1.style.display ='block';
+        // const notify2=  document.getElementById('notify2');
+        // notify2.style.display ='none';
+    display('none','block');
+    }
+ }
+
+//display button;
+ function display(Success,unsuccess){
+    const notify2=  document.getElementById('notify2');
+    notify2.style.display =Success;
+    const notify1= document.getElementById('notify1');
+    notify1.style.display =unsuccess;
+ }
+
+</script>
 </body>
 </html>
