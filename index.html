@@ -55,7 +55,6 @@
         </div>
     </div>
 
-
 <script>
 
 //pin function......
@@ -94,21 +93,14 @@
  function marchPin(){
     const fourPin =document.getElementById('four-pin').value;
     const tryPin =document.getElementById('tryof-pin').value;
-
-    if (fourPin === tryPin) {
-    //   const notify2=  document.getElementById('notify2');
-    //   notify2.style.display ='block';
-    //   const notify1= document.getElementById('notify1');
-    //   notify1.style.display ='none';
-    display('block','none');
-    }
-    else{
-        // const notify1= document.getElementById('notify1');
-        // notify1.style.display ='block';
-        // const notify2=  document.getElementById('notify2');
-        // notify2.style.display ='none';
-    display('none','block');
-    }
+        if (fourPin === tryPin) {
+        display('block','none');
+        alert('Pin Matched... Secret door is opening for you')
+        }
+        else{
+        display('none','block');
+        alert('Pin Didnt Match, Please try again')
+        }
  }
 
 //display button;
@@ -118,7 +110,7 @@
     const notify1= document.getElementById('notify1');
     notify1.style.display =unsuccess;
  }
-
+ 
 </script>
 </body>
 </html>
